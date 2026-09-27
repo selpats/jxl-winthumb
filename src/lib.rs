@@ -138,8 +138,9 @@ impl IWICBitmapDecoder_Impl for JXLWICBitmapDecoder_Impl {
             let mut options = JxlDecoderOptions::default();
             options.scan_frames_only = true;
             let scan_decoder = JxlDecoder::<Initialized>::new(options);
-            if let Ok(ProcessingResult::Complete { result: mut dec_info }) =
-                scan_decoder.process(&mut scan_input, None)
+            if let Ok(ProcessingResult::Complete {
+                result: mut dec_info,
+            }) = scan_decoder.process(&mut scan_input, None)
             {
                 let mut count = 0;
                 while dec_info.has_more_frames() {

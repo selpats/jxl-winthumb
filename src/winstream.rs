@@ -1,8 +1,6 @@
 use std::io::{Read, Seek, SeekFrom};
 
-use windows::Win32::System::Com::{
-    IStream, STREAM_SEEK_CUR, STREAM_SEEK_END, STREAM_SEEK_SET,
-};
+use windows::Win32::System::Com::{IStream, STREAM_SEEK_CUR, STREAM_SEEK_END, STREAM_SEEK_SET};
 
 pub struct WinStream<'a> {
     stream: &'a IStream,
@@ -39,11 +37,8 @@ impl Seek for WinStream<'_> {
         };
         let mut new_pos = 0u64;
         unsafe {
-            self.stream.Seek(
-                offset,
-                origin,
-                Some((&mut new_pos) as *mut _),
-            )
+            self.stream
+                .Seek(offset, origin, Some((&mut new_pos) as *mut _))
         }
         .map_err(|err| std::io::Error::other(format!("IStream::Seek failed: {}", err.code().0)))?;
         Ok(new_pos)

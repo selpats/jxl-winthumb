@@ -1,6 +1,6 @@
 [package]
 name = "jxl-winthumb"
-version = "0.3.2"
+version = "0.3.3"
 authors = ["Kagami Sascha Rosylight <saschanaz@outlook.com>"]
 edition = "2024"
 
@@ -14,7 +14,7 @@ simple-logging = "2.0.2"
 log = "0.4.34"
 windows-core = "0.62.2"
 winreg = "0.56.0"
-jxl = "0.6.0"
+jxl = "0.7.4"
 rayon = "1.12.0"
 
 [dependencies.windows]

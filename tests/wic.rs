@@ -50,9 +50,9 @@ fn basic() {
 #[test]
 fn test_property_store() {
     use jxl_winthumb::JXLPropertyStore;
-    use windows::core::{GUID, Interface};
     use windows::Win32::Foundation::PROPERTYKEY;
     use windows::Win32::UI::Shell::PropertiesSystem::{IInitializeWithStream, IPropertyStore};
+    use windows::core::{GUID, Interface};
 
     let mem = std::fs::read("tests/alien.jxl").expect("Read the test file");
     let stream = unsafe { SHCreateMemStream(Some(&mem[..])) }.expect("Create an IStream");
@@ -63,10 +63,12 @@ fn test_property_store() {
     let prop_store: IPropertyStore = prop_init.cast().expect("Cast to IPropertyStore");
 
     let count = unsafe { prop_store.GetCount() }.expect("GetCount");
-    assert_eq!(count, 3, "Expected 3 properties (width, height, dimensions)");
+    assert_eq!(
+        count, 3,
+        "Expected 3 properties (width, height, dimensions)"
+    );
 
-    let psguid_imagesummaryinformation =
-        GUID::from_u128(0x6444048F_4C8B_11D1_8B70_080036B11A03);
+    let psguid_imagesummaryinformation = GUID::from_u128(0x6444048F_4C8B_11D1_8B70_080036B11A03);
 
     let key_w = PROPERTYKEY {
         fmtid: psguid_imagesummaryinformation,
